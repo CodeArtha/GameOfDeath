@@ -1,6 +1,7 @@
 <html>
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> <!-- for bootstrap to be responsive -->
 
   <!-- Bootstrap compiled JS and CSS delivered from CDN for better cache efficienty -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
@@ -10,19 +11,22 @@
 
   <!-- p5js scripts -->
   <script language="javascript" type="text/javascript" src="libraries/p5.js"></script>
-  <script language="javascript" type="text/javascript"src="libraries/p5.dom.js"></script>
-  <script language="javascript" type="text/javascript"src="libraries/p5.sound.js"></script>
+  <script language="javascript" type="text/javascript" src="libraries/p5.dom.js"></script>
+  <script language="javascript" type="text/javascript" src="libraries/p5.sound.js"></script>
 
   <!-- GOD scripts -->
   <script language="javascript" type="text/javascript" src="cell.js"></script>
   <script language="javascript" type="text/javascript" src="button.js"></script>
   <script language="javascript" type="text/javascript" src="sketch.js"></script>
 
-  <!-- this line removes any default padding and style. you might only need one of these values set. -->
-  <style>body {padding: 0; margin: 30;}</style>
   <title>Game of life and death</title>
 </head>
 
 <body>
+  <div class="container">
+    <div id="gameboard" class="mx-auto">
+      <!-- canvas -->
+    </div>
+  </div>
 </body>
 </html>

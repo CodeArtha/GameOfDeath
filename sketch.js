@@ -16,8 +16,17 @@ var framesToPlay = -1;
 
 function setup() {
 	//creating the frame in which everything will be drown.
-	createCanvas((cols * scl) + btnWidth + scl, rows * scl);
-	frameRate(drawFrameRate); // number of times per second the function draw() is called
+	//createCanvas((cols * scl) + btnWidth + scl, rows * scl);
+	// Adding the canvas to a htm div element as to better style it
+	var myCanvas = createCanvas((cols * scl) + btnWidth + scl, rows * scl);
+	myCanvas.parent("gameboard");
+	document.getElementById("gameboard").style.width = width;
+	document.getElementById("gameboard").style.height = height;
+	document.getElementById("defaultCanvas0").classList.add("rounded");
+
+
+	// number of times per second the function draw() is called
+	frameRate(drawFrameRate);
 
 	//Button(lbl, fct, type, status, posX, posY, w, h)
 	btns.push(new Button("New Random", "resetGrid", "flash", 1, cols * scl + scl/2, 0, btnWidth, btnHeight));
