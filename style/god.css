@@ -1,0 +1,28 @@
+*{
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+#controls{
+  width: auto !important;
+  margin: 12px !important;
+  padding: 0 !important;
+}
+
+#controls button{
+  margin-right: 12px;
+  min-width: 100px;
+}
+
+#wrapper{
+  height: 1080px;
+}
+
+#gameboard{
+  margin: 12px 0px;
+}
+
+#middleBtn{
+	position:absolute;
+	left:50%;
+	top:50%;
+}

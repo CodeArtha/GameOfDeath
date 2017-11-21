@@ -18,22 +18,32 @@ function setup() {
 	//creating the frame in which everything will be drown.
 	//createCanvas((cols * scl) + btnWidth + scl, rows * scl);
 	// Adding the canvas to a htm div element as to better style it
-	var myCanvas = createCanvas((cols * scl) + btnWidth + scl, rows * scl);
+	var myCanvas = createCanvas(cols * scl, rows * scl);
 	myCanvas.parent("gameboard");
 	document.getElementById("gameboard").style.width = width;
 	document.getElementById("gameboard").style.height = height;
 	document.getElementById("defaultCanvas0").classList.add("rounded");
+	document.getElementById("wrapper").style.width = width + 24;
 
 
 	// number of times per second the function draw() is called
 	frameRate(drawFrameRate);
 
+	btns.push(new Button("Label", "alert('you clicked me')", "flash", 1, 0, 0, 0, 0));
+	btns.push(new Button("eslse", "alert('you clicked me')", "flash", 1, 0, 0, 0, 0));
+
+
+	//adding buttons to HTML page
+	for (var i = 0; i < btns.length; i++) {
+		btns[i].htmlAdd();
+	}
+
 	//Button(lbl, fct, type, status, posX, posY, w, h)
-	btns.push(new Button("New Random", "resetGrid", "flash", 1, cols * scl + scl/2, 0, btnWidth, btnHeight));
-	btns.push(new Button("Auto Play", "toggleAutoplay", "toggle", 1, cols * scl + scl/2, btnHeight, btnWidth, btnHeight));
-	btns.push(new Button("Next Move", "forwardNextGen", "flash", 1, cols * scl + scl/2, 2*btnHeight, btnWidth, btnHeight));
-	btns.push(new Button("Show Squares", "toggleHelperSquare", "toggle", show_nextgen_helper, cols * scl + scl/2, 3*btnHeight, btnWidth, btnHeight));
-	btns.push(new Button("Show Count", "toggleNCount", "toggle", show_neighbors_count, cols * scl + scl/2, 4*btnHeight, btnWidth, btnHeight));
+	// btns.push(new Button("New Random", "resetGrid", "flash", 1, cols * scl + scl/2, 0, btnWidth, btnHeight));
+	// btns.push(new Button("Auto Play", "toggleAutoplay", "toggle", 1, cols * scl + scl/2, btnHeight, btnWidth, btnHeight));
+	// btns.push(new Button("Next Move", "forwardNextGen", "flash", 1, cols * scl + scl/2, 2*btnHeight, btnWidth, btnHeight));
+	// btns.push(new Button("Show Squares", "toggleHelperSquare", "toggle", show_nextgen_helper, cols * scl + scl/2, 3*btnHeight, btnWidth, btnHeight));
+	// btns.push(new Button("Show Count", "toggleNCount", "toggle", show_neighbors_count, cols * scl + scl/2, 4*btnHeight, btnWidth, btnHeight));
 
 	//initialisation of the game grid in memory and filling it with random cells.
 	initGrid();
@@ -72,11 +82,6 @@ function draw() {
 				grid[c][r].nextGen();
 			}
 		}
-	}
-
-	//drawing buttons
-	for (var i = 0; i < btns.length; i++) {
-		btns[i].show();
 	}
 }
 
