@@ -22,8 +22,10 @@ function setup() {
 	myCanvas.parent("gameboard");
 	document.getElementById("gameboard").style.width = width;
 	document.getElementById("gameboard").style.height = height;
+	document.getElementById("gameWrapper").style.width = width;
+	document.getElementById("gameWrapper").style.height = height;
 	document.getElementById("defaultCanvas0").classList.add("rounded");
-	document.getElementById("wrapper").style.width = width + 24;
+	document.getElementById("pageWrapper").style.width = width + 24;
 
 
 	// number of times per second the function draw() is called
