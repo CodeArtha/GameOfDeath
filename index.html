@@ -24,18 +24,25 @@
 </head>
 
 <body>
-  <div id="wrapper" class="mx-auto">
-    <div id="gameboard" class="mx-auto">
-      <!-- canvas -->
-    </div>
+<div id="pageWrapper" class="mx-auto">
+	<div id="gameWrapper" class="mx-auto">
+		<div id="gameboard" class="mx-auto">
+			<!-- canvas will be inserted here -->
+		</div>
+			<!-- This div contains HTML controls that will overlay the canvas -->
+		<div id="menuOverlay" class="">
 
-    <div id="controls" class="container mx-auto">
-      <!--
-	  <button type="button" class="btn btn-primary">Button 1</button>
-      <button type="button" class="btn btn-primary" data-toggle="button" aria-pressed="false" autocomplete="off">
-        Single toggle
-      </button> -->
-    </div>
-  </div>
+		</div>
+	</div>
+
+		<!-- This div contains controls that will be placed under the canvas. Those will be game controls. Not sure yet of where to place them on mobiles -->
+	<div id="controls" class="container mx-auto">
+			<!--
+			<button type="button" class="btn btn-primary">Button 1</button>
+			<button type="button" class="btn btn-primary" data-toggle="button" aria-pressed="false" autocomplete="off">
+			Single toggle
+		</button> -->
+	</div>
+</div>
 </body>
 </html>
