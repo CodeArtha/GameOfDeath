@@ -1,18 +1,16 @@
 var cols = 30;
 var rows = 20;
 var scl = 20;
-var btnHeight = 50;
-var btnWidth = 150;
-var btnRad = 5;
-var grid = [];
 var btns = [];
+var grid = [];
 var show_nextgen_helper = true;
 var show_neighbors_count = false;
 var score;
 var drawFrameRate = 30;
 var updateFrameRate = drawFrameRate / 1;
 var frameCounter = updateFrameRate;
-var framesToPlay = -1;
+// var framesToPlay = -1;
+var framesToPlay = 1;
 
 function setup() {
 	//creating the frame in which everything will be drown.
@@ -27,13 +25,11 @@ function setup() {
 	document.getElementById("defaultCanvas0").classList.add("rounded");
 	document.getElementById("pageWrapper").style.width = width + 24;
 
-
 	// number of times per second the function draw() is called
 	frameRate(drawFrameRate);
 
-	btns.push(new Button("Label", "alert('you clicked me')", "flash", 1, 0, 0, 0, 0));
-	btns.push(new Button("eslse", "alert('you clicked me')", "flash", 1, 0, 0, 0, 0));
-
+	// btns.push(new Button("Label", "alert('you clicked me')", "flash", 1, 0, 0, 0, 0));
+	// btns.push(new Button("eslse", "alert('you clicked me')", "flash", 1, 0, 0, 0, 0));
 
 	//adding buttons to HTML page
 	for (var i = 0; i < btns.length; i++) {
@@ -97,9 +93,10 @@ function randomGrid(density = 0.3){
 	for(var r = 0; r < rows; r++){
 		for(var c = 0; c < cols; c++){
 			if(random() <= density){
+				var color = (random() > 0.5) ? 1 : 2;
 				//have to add empty cells on the borders and can't do for(1 to row -1) else there is just no cell
 				if(!(r == 0 || c == 0 || c == cols - 1 || r == rows - 1)){
-					grid[c][r] = new Cell(c, r, 1);
+					grid[c][r] = new Cell(c, r, color);
 				}else {
 					grid[c][r] = new Cell(c, r, 0);
 				}
@@ -108,6 +105,10 @@ function randomGrid(density = 0.3){
 			}
 		}
 	}
+}
+
+function symetricGrid(density = 0.3){
+
 }
 
 function mouseClicked(){

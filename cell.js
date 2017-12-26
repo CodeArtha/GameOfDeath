@@ -1,11 +1,13 @@
 /**
 Cell state:
 0 = dead (black)
-1 = live (white)
+1 = alive (blue)
+2 = alive (red)
 
 Cell nextState:
 0 = going to die (black)
-1 = born (white)
+1 = born (blue)
+2 = born (red)
 */
 
 function Cell(c, r, s){
@@ -19,26 +21,35 @@ function Cell(c, r, s){
 
 	this.show = function(){
 		//drawing whole cell in it's current state
-		if(this.state == 0){
+		if(this.state == 0){ // dead cell
 			if(this.col == 0 || this.col == cols -1  || this.row == 0 || this.row == rows-1){
+				// very black border arround gameboard
 				fill(0);
 			}else{
+				// dark gray dead cell
 				fill(20);
 			}
 			rect(this.x, this.y, scl, scl);
-		} else if( this.state == 1) {
+		} else if( this.state == 1) { // blue team cell
 			score++;
-			fill(255);
+			fill(29, 105, 205);
+			rect(this.x, this.y, scl, scl);
+		} else if( this.state == 2) { // red team cell
+			score++;
+			fill(234, 28, 33);
 			rect(this.x, this.y, scl, scl);
 		}
 
 		//drawing indicator square in the center of the cell representing it's next state
 		if(show_nextgen_helper){
-			if(this.nextState == 0 && this.state == 1){
+			if(this.nextState == 0 && this.state == 1){ // next state is dead
 				fill(20);
 				rect(this.x + (scl/2) - (scl/10), this.y + (scl/2) - (scl/10), scl/5, scl/5);
-			} else if (this.nextState == 1) {
-				fill(255);
+			} else if (this.nextState == 1) { // next state is blue
+				fill(29, 105, 205);
+				rect(this.x + (scl/2) - (scl/10), this.y + (scl/2) - (scl/10), scl/5, scl/5);
+			} else if (this.nextState == 2) { // next state is red
+				fill(234, 28, 33);
 				rect(this.x + (scl/2) - (scl/10), this.y + (scl/2) - (scl/10), scl/5, scl/5);
 			}
 		}
@@ -64,7 +75,7 @@ function Cell(c, r, s){
 	}
 
 
-	/**
+	/** Rules:
     Any live cell with fewer than two live neighbours dies (referred to as underpopulation or exposure[1]).
     Any live cell with more than three live neighbours dies (referred to as overpopulation or overcrowding).
     Any live cell with two or three live neighbours lives, unchanged, to the next generation.
@@ -96,18 +107,40 @@ function Cell(c, r, s){
 	}
 
 	this.countNeighbors = function(){
+		// var blueCount = 0;
+		// var redCount = 0;
+		//
+		// var minigrid = [grid[this.col - 1][this.row -1 ],
+		// 				grid[this.col][this.row - 1],
+		// 				grid[this.col + 1][this.row - 1],
+		// 				grid[this.col - 1][this.row],
+		// 				grid[this.col + 1][this.row],
+		// 				grid[this.col - 1][this.row + 1],
+		// 				grid[this.col][this.row + 1],
+		// 				grid[this.col + 1][this.row + 1]];
+		//
+		// for (var c in minigrid) {
+		// 	var s = c.state;
+		// 	if (s === 1) {
+		// 		blueCount++;
+		// 	}
+		// 	if (s === 2) {
+		// 		redCount++;
+		// 	}
+		// }
+
 		var count = 0;
-
-		if(grid[this.col - 1][this.row -1 ].state == 1) count++;
-		if(grid[this.col][this.row - 1].state == 1) count++;
-		if(grid[this.col + 1][this.row - 1].state == 1) count++;
-		if(grid[this.col - 1][this.row].state == 1) count++;
-		if(grid[this.col + 1][this.row].state == 1) count++;
-		if(grid[this.col - 1][this.row + 1].state == 1) count++;
-		if(grid[this.col][this.row + 1].state == 1) count++;
-		if(grid[this.col + 1][this.row + 1].state == 1) count++;
-
+		if(grid[this.col - 1][this.row -1 ].state >= 1) count++;
+		if(grid[this.col][this.row - 1].state >= 1) count++;
+		if(grid[this.col + 1][this.row - 1].state >= 1) count++;
+		if(grid[this.col - 1][this.row].state >= 1) count++;
+		if(grid[this.col + 1][this.row].state >= 1) count++;
+		if(grid[this.col - 1][this.row + 1].state >= 1) count++;
+		if(grid[this.col][this.row + 1].state >= 1) count++;
+		if(grid[this.col + 1][this.row + 1].state >= 1) count++;
 		return count;
+
+		//return [blueCount, redCount];
 	}
 
 	this.nextGen = function(){
