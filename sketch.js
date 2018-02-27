@@ -16,6 +16,7 @@ function setup() {
 	//creating the frame in which everything will be drown.
 	//createCanvas((cols * scl) + btnWidth + scl, rows * scl);
 	// Adding the canvas to a htm div element as to better style it
+	// set the size of the HTML div to the canvas size to get correct centering
 	var myCanvas = createCanvas(cols * scl, rows * scl);
 	myCanvas.parent("gameboard");
 	document.getElementById("gameboard").style.width = width;
