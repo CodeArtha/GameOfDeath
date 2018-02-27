@@ -13,8 +13,8 @@ Cell nextState:
 function Cell(c, r, s){
 	this.col = c;
 	this.row = r;
-	this.x = c*scl;
-	this.y = r*scl;
+	this.x = c*Config.scl;
+	this.y = r*Config.scl;
 	this.state = s;
 	this.nextState;
 	this.n; //neighbours count
@@ -22,40 +22,40 @@ function Cell(c, r, s){
 	this.show = function(){
 		//drawing whole cell in it's current state
 		if(this.state == 0){ // dead cell
-			if(this.col == 0 || this.col == cols -1  || this.row == 0 || this.row == rows-1){
+			if(this.col == 0 || this.col == Config.cols -1  || this.row == 0 || this.row == Config.rows-1){
 				// very black border arround gameboard
 				fill(0);
 			}else{
 				// dark gray dead cell
 				fill(20);
 			}
-			rect(this.x, this.y, scl, scl);
+			rect(this.x, this.y, Config.scl, Config.scl);
 		} else if( this.state == 1) { // blue team cell
 			score++;
 			fill(29, 105, 205);
-			rect(this.x, this.y, scl, scl);
+			rect(this.x, this.y, Config.scl, Config.scl);
 		} else if( this.state == 2) { // red team cell
 			score++;
 			fill(234, 28, 33);
-			rect(this.x, this.y, scl, scl);
+			rect(this.x, this.y, Config.scl, Config.scl);
 		}
 
 		//drawing indicator square in the center of the cell representing it's next state
-		if(show_nextgen_helper){
+		if(Config.show_nextgen_helper){
 			if(this.nextState == 0 && this.state == 1){ // next state is dead
 				fill(20);
-				rect(this.x + (scl/2) - (scl/10), this.y + (scl/2) - (scl/10), scl/5, scl/5);
+				rect(this.x + (Config.scl/2) - (Config.scl/10), this.y + (Config.scl/2) - (Config.scl/10), Config.scl/5, Config.scl/5);
 			} else if (this.nextState == 1) { // next state is blue
 				fill(29, 105, 205);
-				rect(this.x + (scl/2) - (scl/10), this.y + (scl/2) - (scl/10), scl/5, scl/5);
+				rect(this.x + (Config.scl/2) - (Config.scl/10), this.y + (Config.scl/2) - (Config.scl/10), Config.scl/5, Config.scl/5);
 			} else if (this.nextState == 2) { // next state is red
 				fill(234, 28, 33);
-				rect(this.x + (scl/2) - (scl/10), this.y + (scl/2) - (scl/10), scl/5, scl/5);
+				rect(this.x + (Config.scl/2) - (Config.scl/10), this.y + (Config.scl/2) - (Config.scl/10), Config.scl/5, Config.scl/5);
 			}
 		}
 
 		//writing the number of neighbours in the center of the cells
-		if(show_neighbors_count){
+		if(Config.show_neighbors_count){
 			if(this.state == 1 || (this.state == 0 && this.nextState == 1)){
 				var r,g,b;
 				if(this.nextState == this.state){
@@ -69,7 +69,7 @@ function Cell(c, r, s){
 				fill(r,g,b);
 				textAlign(CENTER,CENTER);
 				textSize(12);
-				text(this.n, scl * (this.col + 0.5), scl * ( this.row + 0.5));
+				text(this.n, Config.scl * (this.col + 0.5), Config.scl * ( this.row + 0.5));
 			}
 		}
 	}
@@ -82,7 +82,7 @@ function Cell(c, r, s){
     Any dead cell with exactly three live neighbours will come to life.
 	*/
 	this.update = function(){
-		if(this.col == 0 || this.col == cols - 1 || this.row == 0 || this.row == rows - 1){
+		if(this.col == 0 || this.col == Config.cols - 1 || this.row == 0 || this.row == Config.rows - 1){
 			this.state = 0;
 			this.nextState = 0;
 		}else{
@@ -149,8 +149,8 @@ function Cell(c, r, s){
 
 	this.isClicked = function(ix, iy){
 		//is this cell the one we clicked on
-		if(ix >= this.x && ix <= this.x + scl){
-			if(iy >= this.y && iy <= this.y + scl) {
+		if(ix >= this.x && ix <= this.x + Config.scl){
+			if(iy >= this.y && iy <= this.y + Config.scl) {
 				return true;
 			}else{return false;}
 		}else{return false;}
@@ -166,8 +166,8 @@ function Cell(c, r, s){
 		// this.show();
 		// updating the cells then drawing them on screen.
 		// updating changes the current state to the state stored in NextGen
-		for(var r = 0; r < rows; r++){
-			for(var c = 0; c < cols; c++){
+		for(var r = 0; r < Config.rows; r++){
+			for(var c = 0; c < Config.cols; c++){
 				grid[c][r].update();
 				grid[c][r].show();
 			}
