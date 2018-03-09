@@ -1,3 +1,0 @@
-class LocalGame extends GameBoard{
-	
-}

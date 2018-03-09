@@ -16,8 +16,7 @@ function Button(lbl, fct, type, state, posX, posY, w, h){
     this.h = h;
     this.wait = -1; // set to a higher value to wait a few frames before going back in color for the flash mode
 
-    // deprecated
-    this.show = function(){
+    this.showOnCanvas = function(){
 		//decreasing wait time then going back to previous state for flashing buttons
 		if(this.wait > 0){
 			this.wait = this.wait -1;
@@ -42,8 +41,8 @@ function Button(lbl, fct, type, state, posX, posY, w, h){
 		text(lbl, this.xmin + 0.5*btnWidth, this.ymin + 0.5*btnHeight);
     }
 
-    this.htmlAdd = function(){
-		var p = document.getElementById("controls");
+    this.showHTML = function(){
+		let p = document.getElementById("controls");
 		p.innerHTML = p.innerHTML + '<button type="button" class="btn btn-primary">'+ this.lbl+'</button>';
     }
 

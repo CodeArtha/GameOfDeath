@@ -57,7 +57,7 @@ function Cell(c, r, s){
 		//writing the number of neighbours in the center of the cells
 		if(show_neighbors_count){
 			if(this.state == 1 || (this.state == 0 && this.nextState == 1)){
-				var r,g,b;
+				let r,g,b;
 				if(this.nextState == this.state){
 					r = 0; g = 0; b = 0;
 				} else if (this.nextState == 0){
@@ -107,10 +107,10 @@ function Cell(c, r, s){
 	}
 
 	this.countNeighbors = function(){
-		// var blueCount = 0;
-		// var redCount = 0;
+		// let blueCount = 0;
+		// let redCount = 0;
 		//
-		// var minigrid = [grid[this.col - 1][this.row -1 ],
+		// let minigrid = [grid[this.col - 1][this.row -1 ],
 		// 				grid[this.col][this.row - 1],
 		// 				grid[this.col + 1][this.row - 1],
 		// 				grid[this.col - 1][this.row],
@@ -119,8 +119,8 @@ function Cell(c, r, s){
 		// 				grid[this.col][this.row + 1],
 		// 				grid[this.col + 1][this.row + 1]];
 		//
-		// for (var c in minigrid) {
-		// 	var s = c.state;
+		// for (let c in minigrid) {
+		// 	let s = c.state;
 		// 	if (s === 1) {
 		// 		blueCount++;
 		// 	}
@@ -129,7 +129,7 @@ function Cell(c, r, s){
 		// 	}
 		// }
 
-		var count = 0;
+		let count = 0;
 		if(grid[this.col - 1][this.row -1 ].state >= 1) count++;
 		if(grid[this.col][this.row - 1].state >= 1) count++;
 		if(grid[this.col + 1][this.row - 1].state >= 1) count++;
@@ -166,8 +166,8 @@ function Cell(c, r, s){
 		// this.show();
 		// updating the cells then drawing them on screen.
 		// updating changes the current state to the state stored in NextGen
-		for(var r = 0; r < rows; r++){
-			for(var c = 0; c < cols; c++){
+		for(let r = 0; r < rows; r++){
+			for(let c = 0; c < cols; c++){
 				grid[c][r].update();
 				grid[c][r].show();
 			}
