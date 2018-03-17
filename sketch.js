@@ -1,12 +1,11 @@
-let cols = 30;
-let rows = 20;
+let cols = 15;
+let rows = 15;
 let scl = 20;
 let btns = [];
 let grid = [];
 let show_nextgen_helper = true;
 let show_neighbors_count = false;
-let blueScore = 256
-let redScore = 128;
+let blueScore, redScore;
 let drawFrameRate = 30;
 let updateFrameRate = drawFrameRate / 1;
 let frameCounter = updateFrameRate;
@@ -49,7 +48,8 @@ function draw() {
 		}
 
 		frameCounter = 0;
-		score = 0;
+		blueScore = 0;
+		redScore = 0;
 		// updating the cells then drawing them on screen.
 		// updating evaluates what nextState will be, but doesn't apply it
 		for(let r = 0; r < rows; r++){

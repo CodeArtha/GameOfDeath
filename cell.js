@@ -31,11 +31,11 @@ function Cell(c, r, s){
 			}
 			rect(this.x, this.y, scl, scl);
 		} else if( this.state == 1) { // blue team cell
-			score++;
+			blueScore++;
 			fill(29, 105, 205);
 			rect(this.x, this.y, scl, scl);
 		} else if( this.state == 2) { // red team cell
-			score++;
+			redScore++;
 			fill(234, 28, 33);
 			rect(this.x, this.y, scl, scl);
 		}
@@ -75,18 +75,20 @@ function Cell(c, r, s){
 	}
 
 
-	/** Rules:
+	/** Rules (from wikipedia):
     Any live cell with fewer than two live neighbours dies (referred to as underpopulation or exposure[1]).
     Any live cell with more than three live neighbours dies (referred to as overpopulation or overcrowding).
     Any live cell with two or three live neighbours lives, unchanged, to the next generation.
     Any dead cell with exactly three live neighbours will come to life.
+	+ A cell borns with the same color as the majority of it's neighbours. (This rule has been added to take account of the two players)
 	*/
 	this.update = function(){
 		if(this.col == 0 || this.col == cols - 1 || this.row == 0 || this.row == rows - 1){
 			this.state = 0;
 			this.nextState = 0;
 		}else{
-			this.n = this.countNeighbors();
+			[this.bc, this.rc] = this.countNeighbors();
+			console.log(this.bc, this.rc);
 
 			if(this.state == 1){
 				if(this.n < 2) {
@@ -106,47 +108,36 @@ function Cell(c, r, s){
 		}
 	}
 
+	/**
+	This function counts the number of neighbouring cells and which player they belong to
+	return array(blue player's cells, red player's cells).
+	*/
 	this.countNeighbors = function(){
-		// let blueCount = 0;
-		// let redCount = 0;
-		//
-		// let minigrid = [grid[this.col - 1][this.row -1 ],
-		// 				grid[this.col][this.row - 1],
-		// 				grid[this.col + 1][this.row - 1],
-		// 				grid[this.col - 1][this.row],
-		// 				grid[this.col + 1][this.row],
-		// 				grid[this.col - 1][this.row + 1],
-		// 				grid[this.col][this.row + 1],
-		// 				grid[this.col + 1][this.row + 1]];
-		//
-		// for (let c in minigrid) {
-		// 	let s = c.state;
-		// 	if (s === 1) {
-		// 		blueCount++;
-		// 	}
-		// 	if (s === 2) {
-		// 		redCount++;
-		// 	}
-		// }
+		let blueCount = 0;
+		let redCount = 0;
 
-		let count = 0;
-		if(grid[this.col - 1][this.row -1 ].state >= 1) count++;
-		if(grid[this.col][this.row - 1].state >= 1) count++;
-		if(grid[this.col + 1][this.row - 1].state >= 1) count++;
-		if(grid[this.col - 1][this.row].state >= 1) count++;
-		if(grid[this.col + 1][this.row].state >= 1) count++;
-		if(grid[this.col - 1][this.row + 1].state >= 1) count++;
-		if(grid[this.col][this.row + 1].state >= 1) count++;
-		if(grid[this.col + 1][this.row + 1].state >= 1) count++;
-		return count;
+		// run trough a 3*3 square arrond the cell
+		for( let colOff = -1 ; colOff <= 1 ; colOff++){
+			for( let rowOff = -1 ; rowOff <= 1; rowOff++){
+				// we only count neighbours so we skip the cell itself
+				if(colOff === 0 && rowOff === 0) continue;
 
-		//return [blueCount, redCount];
+				let c = grid[this.col + colOff][this.row + rowOff];
+				if(c.state === 1) blueCount++;
+				if(c.state === 2) redCount++;
+			}
+		}
+		return [blueCount, redCount];
 	}
 
 	this.nextGen = function(){
 		this.state = this.nextState;
 	}
 
+	/**
+	Checks if the x,y coordinates that the player clicked are on the cell.
+	Returns true if that's the case.
+	*/
 	this.isClicked = function(ix, iy){
 		//is this cell the one we clicked on
 		if(ix >= this.x && ix <= this.x + scl){
