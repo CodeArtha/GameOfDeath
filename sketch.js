@@ -135,7 +135,8 @@ function grid2string(){
 	// To save space we don't convert the border cells that are always dead.
 	for(let r = 1; r < rows - 1; r++){
 		for(let c = 1; c < cols - 1; c++){
-			str = str + grid[c][r].state.toString();
+			console.log(r+","+c);
+			str = str + grid[c][r].state;
 		}
 	}
 

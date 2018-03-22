@@ -17,7 +17,9 @@ function Cell(c, r, s){
 	this.y = r*scl;
 	this.state = s;
 	this.nextState;
-	this.n; //neighbours count
+	this.redCount; // neighbouring red cells count
+	this.blueCount; // neighbouring blue cells count
+	this.totalCount; //neighbours count
 
 	this.show = function(){
 		//drawing whole cell in it's current state
@@ -31,11 +33,11 @@ function Cell(c, r, s){
 			}
 			rect(this.x, this.y, scl, scl);
 		} else if( this.state == 1) { // blue team cell
-			blueScore++;
+			blueScore++; //updating blue player's score (aka number of blue cells drawed)
 			fill(29, 105, 205);
 			rect(this.x, this.y, scl, scl);
 		} else if( this.state == 2) { // red team cell
-			redScore++;
+			redScore++; //updating red player's score (aka number of red cells drawed
 			fill(234, 28, 33);
 			rect(this.x, this.y, scl, scl);
 		}
@@ -69,7 +71,7 @@ function Cell(c, r, s){
 				fill(r,g,b);
 				textAlign(CENTER,CENTER);
 				textSize(12);
-				text(this.n, scl * (this.col + 0.5), scl * ( this.row + 0.5));
+				text(this.totalCount, scl * (this.col + 0.5), scl * ( this.row + 0.5));
 			}
 		}
 	}
@@ -84,25 +86,26 @@ function Cell(c, r, s){
 	*/
 	this.update = function(){
 		if(this.col == 0 || this.col == cols - 1 || this.row == 0 || this.row == rows - 1){
+			//cells from the border should remain dead at all times
 			this.state = 0;
 			this.nextState = 0;
 		}else{
-			[this.bc, this.rc] = this.countNeighbors();
-			console.log(this.bc, this.rc);
+			[this.blueCount, this.redCount, this.totalCount] = this.countNeighbors();
 
 			if(this.state == 1){
-				if(this.n < 2) {
-					this.nextState = 0;
-				}else if(this.n > 3){
-					this.nextState = 0;
-				}else if(this.n == 2 || this.n == 3){
-					this.nextState = this.state;
+				if(this.totalCount < 2) {
+					this.nextState = 0; //cell is alive and will die from underpopulation
+				}else if(this.totalCount > 3){
+					this.nextState = 0; //cell is alive and will die from overpopulation
+				}else if(this.totalCount == 2 || this.totalCount == 3){
+					this.nextState = this.state; //cell stays alive
 				}
 			}else if (this.state == 0) {
-				if (this.n == 3) {
-					this.nextState = 1;
+				if (this.totalCount == 3) {
+					// since the total count is 3 there is always an odd number of cells so there are eighter more blues or more reds. We do not need to handle a tie. If blueCount is bigger than redCount, cell will born blue (nextstate = 1), else it can only mean that redCount is bigger thus cell will be born red (nextstate = 2).
+					this.nextState = (this.blueCount > this.redCount) ? 1 : 2;
 				}else{
-					this.nextState = this.state;
+					this.nextState = this.state; //cell is dead and stays dead
 				}
 			}
 		}
@@ -113,8 +116,8 @@ function Cell(c, r, s){
 	return array(blue player's cells, red player's cells).
 	*/
 	this.countNeighbors = function(){
-		let blueCount = 0;
-		let redCount = 0;
+		let bc = 0;
+		let rc = 0;
 
 		// run trough a 3*3 square arrond the cell
 		for( let colOff = -1 ; colOff <= 1 ; colOff++){
@@ -123,11 +126,11 @@ function Cell(c, r, s){
 				if(colOff === 0 && rowOff === 0) continue;
 
 				let c = grid[this.col + colOff][this.row + rowOff];
-				if(c.state === 1) blueCount++;
-				if(c.state === 2) redCount++;
+				if(c.state === 1) bc++;
+				if(c.state === 2) rc++;
 			}
 		}
-		return [blueCount, redCount];
+		return [bc, rc, bc+rc];
 	}
 
 	this.nextGen = function(){
