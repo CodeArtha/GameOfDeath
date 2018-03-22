@@ -3,7 +3,8 @@
  * type = eighter toggle or flash
  * state = 1 or 0 if it starts as active or inactive
  */
-function Button(lbl, fct, type, state, posX, posY, w, h){
+function Button(lbl, fct, type, state){
+	this.id;
     this.lbl = lbl;
     this.fct = fct;
     this.typ = type;

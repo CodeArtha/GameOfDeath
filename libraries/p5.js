@@ -20670,7 +20670,7 @@ p5.prototype.loadStrings = function (path, callback, errorCallback) {
  *
  * function setup() {
  *   //count the columns
- *   print(table.getRowCount() + " total rows in table");
+ *   print(table.getRowCount() + " totalConfig.rows in table");
  *   print(table.getColumnCount() + " total columns in table");
  *
  *   print(table.getColumn("name"));
@@ -21534,7 +21534,7 @@ p5.prototype.saveTable = function (table, filename, options) {
       }
     }
 
-    // make rows
+    // makeConfig.rows
     for (var i = 0; i < table.rows.length; i++) {
       var j;
       for (j = 0; j < table.rows[i].arr.length; j++) {
@@ -21572,7 +21572,7 @@ p5.prototype.saveTable = function (table, filename, options) {
       pWriter.print('    </tr>');
     }
 
-    // make rows
+    // makeConfig.rows
     for (var row = 0; row < table.rows.length; row++) {
       pWriter.print('    <tr>');
       for (var col = 0; col < table.columns.length; col++) {
@@ -21745,7 +21745,7 @@ var p5 = _dereq_('../core/core');
  */
 
 /**
- *  Table objects store data with multiple rows and columns, much
+ *  Table objects store data with multipleConfig.rows and columns, much
  *  like in a traditional spreadsheet. Tables can be generated from
  *  scratch, dynamically, or using data from an existing file.
  *
@@ -21762,7 +21762,7 @@ p5.Table = function (rows) {
   this.columns = [];
 
   /**
-   *  @property rows
+   *  @propertyConfig.rows
    *  @type {Array}
    */
   this.rows = [];
@@ -21926,7 +21926,7 @@ p5.Table.prototype.getRow = function(r) {
 };
 
 /**
- *  Gets all rows from the table. Returns an array of p5.TableRows.
+ *  Gets allConfig.rows from the table. Returns an array of p5.TableRows.
  *
  *  @method  getRows
  *  @return {Array}   Array of p5.TableRows
@@ -21951,11 +21951,11 @@ p5.Table.prototype.getRow = function(r) {
 	* }
 	*
 	* function setup() {
-	*   var rows = table.getRows();
+	*   varConfig.rows = table.getRows();
 	*
-	*   //warning: rows is an array of objects
-	*   for (var r = 0; r < rows.length; r++)
-	*     rows[r].set("name", "Unicorn");
+	*   //warning:Config.rows is an array of objects
+	*   for (var r = 0; r <Config.rows.length; r++)
+	*    Config.rows[r].set("name", "Unicorn");
 	*
 	*   //print the results
 	*   for (var r = 0; r < table.getRowCount(); r++)
@@ -21976,7 +21976,7 @@ p5.Table.prototype.getRows = function() {
 /**
  *  Finds the first row in the Table that contains the value
  *  provided, and returns a reference to that row. Even if
- *  multiple rows are possible matches, only the first matching
+ *  multipleConfig.rows are possible matches, only the first matching
  *  row is returned. The column to search may be specified by
  *  either its ID or title.
  *
@@ -22040,9 +22040,9 @@ p5.Table.prototype.findRow = function(value, column) {
 };
 
 /**
- *  Finds the rows in the Table that contain the value
- *  provided, and returns references to those rows. Returns an
- *  Array, so for must be used to iterate through all the rows,
+ *  Finds theConfig.rows in the Table that contain the value
+ *  provided, and returns references to thoseConfig.rows. Returns an
+ *  Array, so for must be used to iterate through all theConfig.rows,
  *  as shown in the example above. The column to search may be
  *  specified by either its ID or title.
  *
@@ -22078,8 +22078,8 @@ p5.Table.prototype.findRow = function(value, column) {
 	*   newRow.setString("species", "Scape Goat");
 	*   newRow.setString("name", "Goat");
 	*
-	*   //find the rows containing animals named Goat
-	*   var rows = table.findRows("Goat", "name");
+	*   //find theConfig.rows containing animals named Goat
+	*   varConfig.rows = table.findRows("Goat", "name");
 	*   print(rows.length + " Goats found");
 	* }
 	* </code>
@@ -22112,7 +22112,7 @@ p5.Table.prototype.findRows = function(value, column) {
 /**
  *  Finds the first row in the Table that matches the regular
  *  expression provided, and returns a reference to that row.
- *  Even if multiple rows are possible matches, only the first
+ *  Even if multipleConfig.rows are possible matches, only the first
  *  matching row is returned. The column to search may be
  *  specified by either its ID or title.
  *
@@ -22142,9 +22142,9 @@ p5.Table.prototype.matchRow = function(regexp, column) {
 };
 
 /**
- *  Finds the rows in the Table that match the regular expression provided,
- *  and returns references to those rows. Returns an array, so for must be
- *  used to iterate through all the rows, as shown in the example. The
+ *  Finds theConfig.rows in the Table that match the regular expression provided,
+ *  and returns references to thoseConfig.rows. Returns an array, so for must be
+ *  used to iterate through all theConfig.rows, as shown in the example. The
  *  column to search may be specified by either its ID or title.
  *
  *  @method  matchRows
@@ -22178,9 +22178,9 @@ p5.Table.prototype.matchRow = function(regexp, column) {
  *    newRow.setString('name', 'Lizard');
  *    newRow.setString('type', 'Reptile');
  *
- *    var rows = table.matchRows('R.*', 'type');
- *    for (var i = 0; i < rows.length; i++) {
- *      print(rows[i].getString('name') + ': ' + rows[i].getString('type'));
+ *    varConfig.rows = table.matchRows('R.*', 'type');
+ *    for (var i = 0; i <Config.rows.length; i++) {
+ *      print(rows[i].getString('name') + ': ' +Config.rows[i].getString('type'));
  *    }
  *  }
  *  // Sketch prints:
@@ -22262,7 +22262,7 @@ p5.Table.prototype.getColumn = function(value) {
 };
 
 /**
- *  Removes all rows from a Table. While all rows are removed,
+ *  Removes allConfig.rows from a Table. While allConfig.rows are removed,
  *  columns and column titles are maintained.
  *
  *  @method  clearRows
@@ -22288,7 +22288,7 @@ p5.Table.prototype.getColumn = function(value) {
 	*
 	* function setup() {
 	*   table.clearRows();
-	*   print(table.getRowCount() + " total rows in table");
+	*   print(table.getRowCount() + " totalConfig.rows in table");
 	*   print(table.getColumnCount() + " total columns in table");
 	* }
 	* </code>
@@ -22364,10 +22364,10 @@ p5.Table.prototype.getColumnCount = function() {
 };
 
 /**
- *  Returns the total number of rows in a Table.
+ *  Returns the total number ofConfig.rows in a Table.
  *
  *  @method  getRowCount
- *  @return {Number} Number of rows in this table
+ *  @return {Number} Number ofConfig.rows in this table
 
  */
 p5.Table.prototype.getRowCount = function() {
@@ -22378,7 +22378,7 @@ p5.Table.prototype.getRowCount = function() {
  *  <p>Removes any of the specified characters (or "tokens").</p>
  *
  *  <p>If no column is specified, then the values in all columns and
- *  rows are processed. A specific column may be referenced by
+ * Config.rows are processed. A specific column may be referenced by
  *  either its ID or title.</p>
  *
  *  @method  removeTokens
@@ -22428,7 +22428,7 @@ p5.Table.prototype.removeTokens = function(chars, column) {
 /**
  *  Trims leading and trailing whitespace, such as spaces and tabs,
  *  from String table values. If no column is specified, then the
- *  values in all columns and rows are trimmed. A specific column
+ *  values in all columns andConfig.rows are trimmed. A specific column
  *  may be referenced by either its ID or title.
  *
  *  @method  trim
