@@ -37,7 +37,8 @@ function setup() {
 
 	//initialisation of the game grid in memory and filling it with random cells.
 	initGrid();
-	randomGrid();
+	//randomGrid();
+	symetricGrid();
 }
 
 function draw() {
@@ -81,6 +82,9 @@ function draw() {
 function initGrid(){
 	for(let c = 0; c < cols; c++){
 		grid[c] = [];
+		for (var r = 0; r < rows; r++) {
+			grid[c][r] = new Cell(c,r,0);
+		}
 	}
 }
 
@@ -103,7 +107,22 @@ function randomGrid(density = 0.3){
 }
 
 function symetricGrid(density = 0.3){
-
+	for(let r = 0; r < rows / 2; r++){
+		for(let c = 0; c < cols; c++){
+			//adding a border of empty cells to avoid Array out of bound later on when counting neighbours
+			if(r == 0 || c == 0 || c == cols - 1 || r == rows - 1){
+				grid[c][r] = new Cell(c, r, 0);
+				continue;
+			}else if(random() <= density){
+				let color1 = (random() > 0.5) ? 1 : 2;
+				let color2 = (color1 === 1) ? 2 : 1;
+				grid[c][r] = new Cell(c,r, color1);
+				grid[cols-c-1][rows - r-1] = new Cell(cols-c-1, rows-r-1, color2);
+			} else {
+				grid[c][r] = new Cell(c, r, 0);
+			}
+		}
+	}
 }
 
 function mouseClicked(){
