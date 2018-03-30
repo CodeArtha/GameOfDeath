@@ -1,11 +1,12 @@
-let cols = 15;
-let rows = 15;
+let cols = 16;
+let rows = 16;
 let scl = 20;
 let btns = [];
 let grid = [];
 let show_nextgen_helper = true;
 let show_neighbors_count = false;
-let blueScore, redScore;
+let blueScore =0;
+let redScore = 0;
 let drawFrameRate = 30;
 let updateFrameRate = drawFrameRate / 1;
 let frameCounter = updateFrameRate;
@@ -28,13 +29,6 @@ function setup() {
 	// number of times per second the function draw() is called
 	frameRate(drawFrameRate);
 
-	//adding buttons to HTML page
-	for (let i = 0; i < btns.length; i++) {
-		btns[i].showHTML();
-	}
-
-	//Button(lbl, fct, type, status, posX, posY, w, h)
-
 	//initialisation of the game grid in memory and filling it with random cells.
 	initGrid();
 	//randomGrid();
@@ -44,13 +38,11 @@ function setup() {
 function draw() {
 	frameCounter++;
 	if(frameCounter >= updateFrameRate && framesToPlay != 0){
+		frameCounter = 0;
 		if (framesToPlay > 0) {
 			framesToPlay--;
 		}
 
-		frameCounter = 0;
-		blueScore = 0;
-		redScore = 0;
 		// updating the cells then drawing them on screen.
 		// updating evaluates what nextState will be, but doesn't apply it
 		for(let r = 0; r < rows; r++){
@@ -66,7 +58,6 @@ function draw() {
 		textSize(15);
 		text("Blue score: " + blueScore, scl * cols * 0.25, 0.6 * scl);
 		text("Red score: " + redScore, scl * cols * 0.75, 0.6 * scl);
-
 
 		// applies state of cells in next generation
 		// warning: can't be added to the loop responsible for updating and drawing the cells
