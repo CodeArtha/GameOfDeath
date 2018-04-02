@@ -10,18 +10,21 @@ Cell nextState:
 2 = born (red)
 */
 
-function Cell(c, r, s){
-	this.col = c;
-	this.row = r;
-	this.x = c*scl;
-	this.y = r*scl;
-	this.state = s;
-	this.nextState;
-	this.redCount; // neighbouring red cells count
-	this.blueCount; // neighbouring blue cells count
-	this.totalCount; //neighbours count
+class Cell{
+	constructor(c, r, s){
+		this.col = c;
+		this.row = r;
+		this.state = s;
+		this.nextState = 0 ;
+		this.x = c*scl;
+		this.y = r*scl;
+		this.redCount = 0; // neighbouring red cells count
+		this.blueCount = 0; // neighbouring blue cells count
+		this.totalCount = 0; //neighbours count
 
-	this.show = function(){
+	}
+
+	show(){
 		//drawing whole cell in it's current state
 		if(this.state == 0){ // dead cell
 			if(this.col == 0 || this.col == cols -1  || this.row == 0 || this.row == rows-1){
@@ -84,7 +87,9 @@ function Cell(c, r, s){
     Any dead cell with exactly three live neighbours will come to life.
 	+ A cell borns with the same color as the majority of it's neighbours. (This rule has been added to take account of the two players)
 	*/
-	this.update = function(){
+	update(){
+		console.log(this.state);
+
 		if(this.col == 0 || this.col == cols - 1 || this.row == 0 || this.row == rows - 1){
 			//cells from the border should remain dead at all times
 			this.state = 0;
@@ -109,13 +114,15 @@ function Cell(c, r, s){
 				}
 			}
 		}
+		console.log(this.state);
+
 	}
 
 	/**
 	This function counts the number of neighbouring cells and which player they belong to
 	return array(blue player's cells, red player's cells).
 	*/
-	this.countNeighbors = function(){
+	countNeighbors(){
 		let bc = 0;
 		let rc = 0;
 
@@ -123,25 +130,26 @@ function Cell(c, r, s){
 		for( let colOff = -1 ; colOff <= 1 ; colOff++){
 			for( let rowOff = -1 ; rowOff <= 1; rowOff++){
 				// we only count neighbours so we skip the cell itself
-				if(colOff === 0 && rowOff === 0) continue;
+				if(colOff == 0 && rowOff == 0) continue;
 
 				let c = grid[this.col + colOff][this.row + rowOff];
-				if(c.state === 1) bc++;
-				if(c.state === 2) rc++;
+				if(c.state == 1) bc++;
+				if(c.state == 2) rc++;
 			}
 		}
 		return [bc, rc, bc+rc];
 	}
 
-	this.nextGen = function(){
+	nextGen(){
 		this.state = this.nextState;
+		console.log(this.state);
 	}
 
 	/**
 	Checks if the x,y coordinates that the player clicked are on the cell.
 	Returns true if that's the case.
 	*/
-	this.isClicked = function(ix, iy){
+	isClicked(ix, iy){
 		//is this cell the one we clicked on
 		if(ix >= this.x && ix <= this.x + scl){
 			if(iy >= this.y && iy <= this.y + scl) {
@@ -150,7 +158,7 @@ function Cell(c, r, s){
 		}else{return false;}
 	}
 
-	this.onClick = function(){
+	onClick(){
 		if(this.state == 0){
 			this.state = 1;
 		}else{

@@ -5,13 +5,12 @@ let btns = [];
 let grid = [];
 let show_nextgen_helper = true;
 let show_neighbors_count = false;
-let blueScore =0;
-let redScore = 0;
+let blueScore, redScore;
 let drawFrameRate = 30;
 let updateFrameRate = drawFrameRate / 1;
 let frameCounter = updateFrameRate;
 // let framesToPlay = -1;
-let framesToPlay = 1;
+let framesToPlay = -1;
 
 function setup() {
 	//creating the frame in which everything will be drown.
@@ -31,8 +30,8 @@ function setup() {
 
 	//initialisation of the game grid in memory and filling it with random cells.
 	initGrid();
-	//randomGrid();
-	symetricGrid();
+	randomGrid();
+	//symetricGrid();
 }
 
 function draw() {
@@ -42,6 +41,9 @@ function draw() {
 		if (framesToPlay > 0) {
 			framesToPlay--;
 		}
+
+		blueScore = 0;
+		redScore = 0;
 
 		// updating the cells then drawing them on screen.
 		// updating evaluates what nextState will be, but doesn't apply it
@@ -75,6 +77,7 @@ function initGrid(){
 		grid[c] = [];
 		for (var r = 0; r < rows; r++) {
 			grid[c][r] = new Cell(c,r,0);
+			console.log(grid[c][r].state);
 		}
 	}
 }
@@ -93,6 +96,8 @@ function randomGrid(density = 0.3){
 			}else{
 				grid[c][r] = new Cell(c, r, 0);
 			}
+			console.log(grid[c][r].state);
+
 		}
 	}
 }
@@ -106,7 +111,7 @@ function symetricGrid(density = 0.3){
 				continue;
 			}else if(random() <= density){
 				let color1 = (random() > 0.5) ? 1 : 2;
-				let color2 = (color1 === 1) ? 2 : 1;
+				let color2 = (color1 == 1) ? 2 : 1;
 				grid[c][r] = new Cell(c,r, color1);
 				grid[cols-c-1][rows - r-1] = new Cell(cols-c-1, rows-r-1, color2);
 			} else {
@@ -153,7 +158,7 @@ function grid2string(){
 	return str;
 }
 
-// Button actions functions
+//**** Button actions functions ****  TODO: replace by callback(); function.
 function resetGrid(){
 	console.log("new random grid");
 	grid = null;
